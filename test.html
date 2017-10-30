@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JQUERY Drag-Drop Example</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+
+
+        .draggable {
+            padding: 0.2em;
+            float: left;
+            margin: 10px 10px 10px 0;
+
+            cursor: hand;
+        }
+
+        .noselect {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+        }
+
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+<script>
+    $(function () {
+
+
+
+
+        $(".draggable").draggable({
+            cursor: "move",
+            opacity: 0.7,
+        });
+
+
+        $( ".droppable" ).droppable({
+
+            drop: function( event, ui ) {
+               console.log(event);
+               console.log(ui);
+            }
+
+        });
+
+
+
+    });
+</script>
+
+<div class="droppable ui-widget-header">
+
+</div>
+
+<div class="droppable ui-widget-header">
+
+</div>
+
+<div class="droppable ui-widget-header">
+
+</div>
+
+
+<div class="draggable ui-widget-content noselect">
+    I want
+    <input type="hidden" class="draggableValue" value="I want"/>
+</div>
+
+
+<div class="draggable ui-widget-content noselect">
+    you to do
+    <input type="hidden" class="draggableValue" value="you to do"/>
+</div>
+
+
+<div class="draggable ui-widget-content noselect">
+    me a favor .
+    <input type="hidden" class="draggableValue" value="me a favor ."/>
+</div>
+
+
+</body>
+</html>
