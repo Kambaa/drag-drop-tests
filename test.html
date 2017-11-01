@@ -48,7 +48,7 @@
             height: 30px;
             line-height: 30px;
             width: 30%;
-            font-size:18px;
+            font-size: 18px;
         }
 
         .portlet-placeholder {
@@ -66,18 +66,36 @@
 <script>
     $(function () {
 
+        function log(str){
+            $('#log').append(str+"\n");
+        }
+
         $("#sentencePartsContainer ul li").draggable({
             connectToSortable: "#wholeSentenceContainer ul",
 //            helper: "clone",
             revert: "invalid",
             cursor: "move"
+//            stop: function () {
+//                if ($('#sentencePartsContainer ul li').length == 0) {
+//                    alert("start to check");
+//
+//                }
+//            }
         });
 
         $("#wholeSentenceContainer ul").sortable({
             revert: true,
-            placeholder: "portlet-placeholder ui-corner-all"
+            placeholder: "portlet-placeholder ui-corner-all",
+            update: function( event, ui ) {
+                var data = $(this).sortable("toArray", {attribute: 'data-value'});
+                log(data);
+            }
         });
 
+        $('#btn').click(function () {
+            var data = $("#wholeSentenceContainer ul").sortable("toArray", {attribute: 'data-value'});
+            log(data);
+        });
     });
 </script>
 
@@ -88,21 +106,22 @@
 
 <div id="sentencePartsContainer">
     <ul>
-        <li>
+        <li data-value="I want">
             I want
-            <input type="hidden" class="sentencePart" value="I want"/>
         </li>
-        <li>
+        <li data-value="you to do">
             you to do
-            <input type="hidden" class="sentencePart" value="you to do"/>
         </li>
-        <li>
-            me a favor .
-            <input type="hidden" class="sentencePart" value="me a favor ."/>
+        <li data-value="me a favor.">
+            me a favor.
         </li>
     </ul>
 </div>
+<h3>Value Change Log</h3>
+<textarea id="log" rows="10" cols="75">
 
+</textarea>
+<button id="btn">clickMe</button>
 
 </body>
 </html>
