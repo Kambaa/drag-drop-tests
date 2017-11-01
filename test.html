@@ -9,38 +9,51 @@
 
         #sentencePartsContainer ul {
             list-style-type: none;
-            margin: 0;
+            margin: 15px auto;
             padding: 0;
-            width: 450px;
+            width: 20%;
         }
 
-        #sentencePartsContainer ul li, #wholeSentenceContainer ul li{
-            margin: 3px;
-            padding: 7px;
+        #sentencePartsContainer {
+            height: 30px;
+        }
+
+        #sentencePartsContainer ul li {
             float: left;
-            font-size: 14px;
-            line-height:18px;
             text-align: center;
-            border:1px solid #ccc;
+            height: 30px;
+            line-height: 30px;
+            width: 30%;
+            background-color: #cccccc;
         }
 
-        .noselect {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        #wholeSentenceContainer {
+            width: 20%;
+            margin: 100px auto 0 auto;
         }
 
-        #wholeSentenceContainer{
-            background-color: #eeeeee;
-        }
-        #wholeSentenceContainer ul{
+        #wholeSentenceContainer ul {
             list-style-type: none;
+            background-color: #ccc;
             margin: 0;
             padding: 0;
-            min-height:100px;
+            height: 32px;
+            width: 90%;
+
         }
 
+        #wholeSentenceContainer ul li {
+            float: left;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            width: 30%;
+            font-size:18px;
+        }
+
+        .portlet-placeholder {
+            height: 30px;
+        }
 
     </style>
 
@@ -53,14 +66,14 @@
 <script>
     $(function () {
 
-        $( "#sentencePartsContainer ul li" ).draggable({
+        $("#sentencePartsContainer ul li").draggable({
             connectToSortable: "#wholeSentenceContainer ul",
 //            helper: "clone",
             revert: "invalid",
             cursor: "move"
         });
 
-        $( "#wholeSentenceContainer ul" ).sortable({
+        $("#wholeSentenceContainer ul").sortable({
             revert: true,
             placeholder: "portlet-placeholder ui-corner-all"
         });
