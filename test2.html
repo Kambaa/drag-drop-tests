@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+        #wholeSentenceContainer {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #eaeaea;
+            height: 40px;
+        }
+
+        .ws {
+            float: left;
+            width: 95px;
+            margin-right: 5px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #sentencePartsContainer {
+            margin: 100px;
+            line-height: 40px;
+        }
+
+        .sp {
+            float: left;
+            width: 95px;
+            margin-right: 5px;
+            line-height: 40px;
+            font-size: 14px;
+            border: 1px solid #eaeaea;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="wholeSentenceContainer">
+    <div id="ws1" class="ws"></div>
+    <div id="ws2" class="ws"></div>
+    <div id="ws3" class="ws"></div>
+</div>
+
+
+<div id="sentencePartsContainer">
+    <div class="sp" data-value="I want">I want</div>
+    <div class="sp" data-value="you to do">you to do</div>
+    <div class="sp" data-value="me a favor.">me a favor.</div>
+</div>
+
+
+<script>
+    $(function () {
+        $(".sp").draggable({
+            revert: "invalid",
+            containment: "document",
+            helper: "clone",
+            cursor: "move"
+        });
+
+        $(".ws").droppable({
+            accept: ".sp",
+            classes: {
+                "ui-droppable-hover": "ui-state-hover"
+            },
+            drop: function (event, ui) {
+                var data = ui.draggable.data("value");
+                $(this).text(data);
+            }
+        })
+        $("ul, li").disableSelection();
+    });
+</script>
+</body>
+</html>
