@@ -9,20 +9,19 @@
 
     <style>
         #wholeSentenceContainer {
-            width: 400px;
             margin: 0 auto;
-            background-color: #eaeaea;
             height: 40px;
+            border-bottom: 1px solid #000;
         }
 
         .ws {
             float: left;
-            width: 95px;
-            margin-right: 5px;
+            width: 33%;
             height: 40px;
             line-height: 40px;
             font-size: 20px;
             text-align: center;
+            position: relative;
         }
 
         #sentencePartsContainer {
@@ -39,15 +38,45 @@
             border: 1px solid #eaeaea;
             text-align: center;
         }
+
+        .sortablePlaceholderContainer {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 13px;
+            line-height: 13px;
+            padding: 4px;
+            cursor: move;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .dropArea {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dropHover {
+            background-color: #cccccc;
+        }
     </style>
 
 </head>
 <body>
 
 <div id="wholeSentenceContainer">
-    <div id="ws1" class="ws"></div>
-    <div id="ws2" class="ws"></div>
-    <div id="ws3" class="ws"></div>
+    <div id="ws1" class="ws">
+        <div class="sortablePlaceholderContainer">&diams;</div>
+        <div class="dropArea"></div>
+    </div>
+    <div id="ws2" class="ws">
+        <div class="sortablePlaceholderContainer">&diams;</div>
+        <div class="dropArea"></div>
+    </div>
+    <div id="ws3" class="ws">
+        <div class="sortablePlaceholderContainer">&diams;</div>
+        <div class="dropArea"></div>
+    </div>
 </div>
 
 
@@ -56,7 +85,7 @@
     <div class="sp" data-value="you to do">you to do</div>
     <div class="sp" data-value="me a favor.">me a favor.</div>
 </div>
-
+<textarea id="log" rows="10" cols="75"></textarea>
 
 <script>
     $(function () {
@@ -67,18 +96,45 @@
             cursor: "move"
         });
 
-        $(".ws").droppable({
+        var processSortable = function () {
+            var data = $('#wholeSentenceContainer').sortable("toArray", {attribute: 'data-value'});
+            log(data);
+        }
+
+        $("#wholeSentenceContainer").sortable({
+            handle: ".sortablePlaceholderContainer",
+//            cancel: ".portlet-toggle",
+//            placeholder: "portlet-placeholder ui-corner-all"
+            update: function (event, ui) {
+                processSortable();
+            },
+            stop: function (event, ui) {
+                processSortable();
+            }
+
+        });
+
+        $(".dropArea").droppable({
             accept: ".sp",
             classes: {
-                "ui-droppable-hover": "ui-state-hover"
+                "ui-droppable-hover": "dropHover"
             },
             drop: function (event, ui) {
                 var data = ui.draggable.data("value");
                 $(this).text(data);
+                $(this).parents('.ws')[0].setAttribute('data-value', data);
+                processSortable();
             }
-        })
+        });
+
         $("ul, li").disableSelection();
+
+
+        function log(str) {
+            $('#log').append(str + "\n");
+        }
     });
 </script>
+
 </body>
 </html>
