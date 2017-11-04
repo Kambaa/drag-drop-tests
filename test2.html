@@ -131,7 +131,9 @@
 
 
         function log(str) {
-            $('#log').append(str + "\n");
+            var joinedText = str.join(' ');
+            var result = joinedText == 'I want you to do me a favor.' ? ' DOĞRU' : 'YANLIŞ';
+            $('#log').append(joinedText + result + "\n");
         }
     });
 </script>
